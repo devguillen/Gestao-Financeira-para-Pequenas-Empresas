@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { FaChartLine, FaDollarSign, FaLightbulb } from 'react-icons/fa';
+import AnimatedBarChart from './AnimatedBarChart';
 
 function App() {
+  const [hideHeader, setHideHeader] = useState(false);
+
+  useEffect(() => {
+    let lastScroll = 0;
+    const handleScroll = () => {
+      const currentScroll = window.scrollY;
+      if (currentScroll > lastScroll && currentScroll > 50) {
+        setHideHeader(true); // esconde ao scroll para baixo
+      } else {
+        setHideHeader(false); // mostra ao scroll para cima
+      }
+      lastScroll = currentScroll;
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const cards = [
     { 
       icon: <FaChartLine size={40} color="#ff6600" />,
@@ -23,7 +41,8 @@ function App() {
 
   return (
     <div className="App">
-      <header className="header visible">
+      {/* Header com degradê e scroll fade */}
+      <header className={`header ${hideHeader ? 'hidden' : ''}`}>
         <div className="container">
           <h1 className="logo">FinançaPro</h1>
           <nav>
@@ -46,13 +65,11 @@ function App() {
             <a href="#" className="btn-primary">Comece Agora</a>
           </div>
           <div className="hero-image">
-            <img 
-              src="https://images.unsplash.com/photo-1605902711622-cfb43c443d30?auto=format&fit=crop&w=800&q=80" 
-              alt="Finance"
-            />
+            <AnimatedBarChart />
           </div>
         </section>
 
+<div className="section-divider"></div>
         {/* Cards informativos */}
         <section className="cards">
           {cards.map((card, index) => (
