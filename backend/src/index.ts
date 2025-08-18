@@ -8,7 +8,10 @@ import transactionRoutes from "./routes/transactionRoutes";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:3000", // ou 3000 se for CRA
+    credentials: true
+  }));
 app.use(express.json());
 
 // Rotas

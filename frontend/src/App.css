@@ -1,64 +1,226 @@
-/* Reset e fonte */
+/* Reset básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
-body {
-  background-color: #fff;
-  color: #333;
+html, body, #root, .App {
+  width: 100%;
+  min-height: 100vh;
 }
 
-/* Container principal */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Cores */
+:root {
+  --primary-color: #ff6600;
+  --secondary-color: #ffffff;
+  --text-color: #333333;
+  --card-bg: #fff7f0;
+  --feedback-bg: #ffe6cc;
 }
 
 /* Header */
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--primary-color);
+  padding: 15px 0;
+  color: var(--secondary-color);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  z-index: 100;
+  transition: top 0.4s ease;
+}
+
+.header.hidden {
+  top: -100px; /* esconde fora da tela */
+}
+
+.header.visible {
+  top: 0;
+}
+
+.header .container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
 }
 
-.header h1 {
-  color: #ff6b00;
-  font-size: 2rem;
+.header .logo {
+  font-size: 1.8rem;
+  font-weight: 700;
 }
 
-/* Cards */
+.header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.header nav ul li a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.header nav ul li a:hover {
+  color: #ffd2b3;
+  transform: scale(1.05);
+  text-decoration: none;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 5% 60px; /* padding-top maior por causa do header fixo */
+  background-color: var(--card-bg);
+  gap: 40px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 30px auto;
+}
+
+.hero-text {
+  flex: 1 1 400px;
+  max-width: 600px;
+  text-align: center;
+}
+
+.hero-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: var(--text-color);
+}
+
+.btn-primary {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  padding: 15px 35px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #e55a00;
+  transform: scale(1.05);
+}
+
+.hero-image {
+  flex: 1 1 400px;
+  max-width: 600px;
+}
+
+.hero-image img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Cards informativos */
 .cards {
   display: flex;
-  gap: 2rem;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 60px 5%;
 }
 
 .card {
+  background-color: var(--card-bg);
+  padding: 30px;
   flex: 1 1 250px;
-  background-color: #fff7f0;
-  border-left: 6px solid #ff6b00;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
+  max-width: 300px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  transition: transform 0.3s;
 }
 
 .card:hover {
   transform: translateY(-5px);
 }
 
-.card h2 {
-  font-size: 1.2rem;
-  color: #ff6b00;
-  margin-bottom: 0.5rem;
+.card h3 {
+  color: var(--primary-color);
+  margin-bottom: 15px;
 }
 
 .card p {
-  font-size: 1.8rem;
-  font-weight: bold;
+  color: var(--text-color);
+}
+
+/* Feedbacks */
+.feedbacks {
+  background-color: var(--feedback-bg);
+  padding: 60px 5%;
+  text-align: center;
+}
+
+.feedbacks h2 {
+  color: var(--primary-color);
+  margin-bottom: 40px;
+}
+
+.feedback-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.feedback-card {
+  background-color: var(--secondary-color);
+  padding: 25px;
+  flex: 1 1 250px;
+  max-width: 300px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  transition: transform 0.3s;
+}
+
+.feedback-card:hover {
+  transform: translateY(-5px);
+}
+
+.feedback-card p {
+  font-style: italic;
+  margin-bottom: 15px;
+}
+
+.feedback-card h4 {
+  color: var(--primary-color);
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .hero-text, .hero-image {
+    padding: 10px;
+  }
+
+  .cards, .feedback-list {
+    flex-direction: column;
+    align-items: center;
+  }
 }
