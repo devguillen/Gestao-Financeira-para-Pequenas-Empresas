@@ -1,40 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './App.css';
+import { FaChartLine, FaDollarSign, FaLightbulb } from 'react-icons/fa';
 
 function App() {
-  const [showHeader, setShowHeader] = useState(true);
-  const [lastScroll, setLastScroll] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScroll = window.scrollY;
-      if (currentScroll > lastScroll) {
-        setShowHeader(false); // scroll para baixo -> esconde
-      } else {
-        setShowHeader(true); // scroll para cima -> mostra
-      }
-      setLastScroll(currentScroll);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScroll]);
-
   const cards = [
-    { title: "Controle Financeiro", desc: "Centralize receitas e despesas de forma fácil." },
-    { title: "Bling Conta Digital", desc: "Receba e pague automaticamente sem complicação." },
-    { title: "Relatórios Detalhados", desc: "Tome decisões inteligentes com dados claros." },
-  ];
-
-  const feedbacks = [
-    { name: "João Silva", text: "O sistema facilitou muito a gestão da minha empresa!" },
-    { name: "Maria Oliveira", text: "Economizei horas de trabalho com os relatórios automáticos." },
-    { name: "Carlos Pereira", text: "Excelente ferramenta, recomendo para qualquer pequeno negócio." },
+    { 
+      icon: <FaChartLine size={40} color="#ff6600" />,
+      title: "Controle Financeiro Completo", 
+      desc: "Nunca perca o controle do seu negócio! Nosso sistema permite que você gerencie todas as receitas e despesas em um só lugar, acompanhe o fluxo de caixa em tempo real e visualize gráficos detalhados que mostram exatamente para onde cada centavo está indo. Ideal para empreendedores que querem tranquilidade e segurança financeira." 
+    },
+    { 
+      icon: <FaDollarSign size={40} color="#ff6600" />,
+      title: "Pagamentos e Recebimentos Instantâneos", 
+      desc: "Receba pagamentos de clientes em segundos e faça pagamentos a fornecedores sem burocracia. Automatize transferências, boletos e cobranças, garantindo que o dinheiro esteja sempre disponível quando você precisa. Fique no controle total do seu fluxo financeiro!" 
+    },
+    { 
+      icon: <FaLightbulb size={40} color="#ff6600" />,
+      title: "Relatórios e Insights Inteligentes", 
+      desc: "Transforme dados em decisões estratégicas. Geração automática de relatórios completos que mostram o desempenho financeiro da sua empresa, análise de lucros e perdas, e sugestões inteligentes para melhorar sua rentabilidade. Tenha informações precisas sempre que precisar e tome decisões seguras e rápidas." 
+    },
   ];
 
   return (
     <div className="App">
-      <header className={`header ${showHeader ? 'visible' : 'hidden'}`}>
+      <header className="header visible">
         <div className="container">
           <h1 className="logo">FinançaPro</h1>
           <nav>
@@ -68,23 +57,11 @@ function App() {
         <section className="cards">
           {cards.map((card, index) => (
             <div key={index} className="card">
+              <div className="card-icon">{card.icon}</div>
               <h3>{card.title}</h3>
               <p>{card.desc}</p>
             </div>
           ))}
-        </section>
-
-        {/* Feedbacks */}
-        <section className="feedbacks">
-          <h2>O que nossos clientes dizem</h2>
-          <div className="feedback-list">
-            {feedbacks.map((fb, index) => (
-              <div key={index} className="feedback-card">
-                <p>"{fb.text}"</p>
-                <h4>- {fb.name}</h4>
-              </div>
-            ))}
-          </div>
         </section>
       </main>
     </div>
