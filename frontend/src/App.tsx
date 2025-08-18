@@ -1,35 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App: React.FC = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="container">
+      <header className="header">
+        <h1>Gestão Financeira</h1>
+        <p>Bem-vindo ao seu painel</p>
+      </header>
 
-export default App
+      <div className="cards">
+        <div className="card">
+          <h2>Receitas</h2>
+          <p>R$ 12.500,00</p>
+        </div>
+        <div className="card">
+          <h2>Despesas</h2>
+          <p>R$ 7.300,00</p>
+        </div>
+        <div className="card">
+          <h2>Saldo</h2>
+          <p>R$ 5.200,00</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default App;
