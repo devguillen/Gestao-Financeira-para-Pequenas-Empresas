@@ -1,11 +1,17 @@
 import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import authRoutes from "./routes/authRoutes";
+import transactionRoutes from "./routes/transactionRoutes";
+
+dotenv.config();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Backend rodando!");
-});
+app.use("/api/auth", authRoutes);
+app.use("/api/transactions", transactionRoutes);
 
-const PORT = 3333;
+const PORT = process.env.PORT || 3333;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
