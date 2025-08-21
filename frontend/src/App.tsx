@@ -4,6 +4,7 @@ import { FaChartLine, FaDollarSign, FaLightbulb } from 'react-icons/fa';
 import AnimatedBarChart from './AnimatedBarChart';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Register from "./pages/Register";
+import Login from "./pages/Login"; // ✅ Import obrigatório
 
 function App() {
   const [hideHeader, setHideHeader] = useState(false);
@@ -32,7 +33,6 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* Header fixo */}
         <header className={`header ${hideHeader ? 'hidden' : ''}`}>
           <div className="container">
             <h1 className="logo">FinançaPro</h1>
@@ -47,12 +47,9 @@ function App() {
           </div>
         </header>
 
-        {/* Rotas */}
         <Routes>
-          {/* Página inicial */}
           <Route path="/" element={
             <main>
-              {/* Hero */}
               <section className="hero">
                 <div className="hero-text">
                   <h2>Controle financeiro moderno e prático</h2>
@@ -66,7 +63,6 @@ function App() {
 
               <div className="section-divider"></div>
 
-              {/* Cards */}
               <section className="cards">
                 {cards.map((card, index) => (
                   <div key={index} className="card">
@@ -78,9 +74,8 @@ function App() {
               </section>
             </main>
           } />
-
-          {/* Página de cadastro */}
           <Route path="/cadastro" element={<Register />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </Router>
