@@ -31,7 +31,7 @@ O frontend é desenvolvido em **React** e o backend em **Node.js com TypeScript*
 - Node.js + TypeScript
 - Express
 - JWT (para autenticação, opcional)
-- pg (PostgreSQL) ou mysql2 (MySQL)
+- Mysql
 - Dotenv para variáveis de ambiente
 - CORS
 
