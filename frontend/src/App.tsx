@@ -4,7 +4,8 @@ import { FaChartLine, FaDollarSign, FaLightbulb } from 'react-icons/fa';
 import AnimatedBarChart from './AnimatedBarChart';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Register from "./pages/Register";
-import Login from "./pages/Login"; // ✅ Import obrigatório
+import Login from "./pages/Login"; // 
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const [hideHeader, setHideHeader] = useState(false);
@@ -39,7 +40,8 @@ function App() {
             <nav>
               <ul>
                 <li><Link to="/">Home</Link></li>
-                <li><Link to="/cadastro">Cadastre-se</Link></li>
+                <li><Link to="/Register">Cadastre-se</Link></li>
+                <li><Link to="/Dashboard                                                                                                                                                                                                                         ">Cadastre-se</Link></li>
                 <li><Link to="/login">Login</Link></li>
                 <li><Link to="/sobre">Sobre Nós</Link></li>
               </ul>
