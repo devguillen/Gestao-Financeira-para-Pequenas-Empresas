@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { pool } from "../utils/db";
+import { error } from "console";
 
 // Listar transações do usuário
 export const getTransactions = async (req: Request, res: Response) => {
@@ -58,5 +59,26 @@ export const deleteTransaction = async (req: Request, res: Response) => {
     res.json({ message: "Transaction deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err });
+  }
+};
+
+// Criar transação com arquivo
+export const createTransactionWithFile = async (req: Request, res: Response) => {
+  try {
+    const user_id = req.userId || 1;
+    const { type, category, amount, description, date } = req.body;
+
+    // Se nenhum arquivo foi enviado
+    const filePath = req.file ? req.file.path : null;
+
+    const result = await pool.query(
+      `INSERT INTO transactions (user_id, type, category, amount, description, date, file_path)
+       VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *`,
+      [user_id, type, category, amount, description, date, filePath]
+    );
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: console.error("Erro ao processar transações recorrentes")});
   }
 };

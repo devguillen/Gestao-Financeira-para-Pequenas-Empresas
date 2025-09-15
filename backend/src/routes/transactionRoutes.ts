@@ -3,10 +3,12 @@ import {
   getTransactions,
   createTransaction,
   updateTransaction,
-  deleteTransaction
+  deleteTransaction,
+  createTransactionWithFile, // import da função de upload
 } from "../controllers/transactionController";
 
 import { authMiddleware } from "../middleware/authMiddleware";
+import { upload } from "../utils/upload"; // middleware de upload
 
 const router = Router();
 
@@ -24,5 +26,14 @@ router.put("/:id", updateTransaction);
 
 // Deletar transação
 router.delete("/:id", deleteTransaction);
+
+// ------------------------
+// Novas rotas de upload
+// Criar transação com arquivo PDF ou CSV
+router.post(
+  "/file",
+  upload.single("file"), // o campo do form-data deve ser "file"
+  createTransactionWithFile
+);
 
 export default router;
