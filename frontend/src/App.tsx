@@ -6,6 +6,10 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login"; 
 import Dashboard from "./pages/Dashboard";
+import GestaoFinanceira from "./img/Gestão Financeira.png";
+
+<img src={GestaoFinanceira} alt="Gestão financeira" />
+
 
 function App() {
   const [hideHeader, setHideHeader] = useState(false);
@@ -26,10 +30,23 @@ function App() {
   }, []);
 
   const cards = [
-    { icon: <FaChartLine size={40} color="#000000" />, title: "Controle Financeiro Completo", desc: "Nunca perca o controle do seu negócio!..." },
-    { icon: <FaDollarSign size={40} color="#000000" />, title: "Pagamentos e Recebimentos Instantâneos", desc: "Receba pagamentos de clientes..." },
-    { icon: <FaLightbulb size={40} color="#000000" />, title: "Relatórios e Insights Inteligentes", desc: "Transforme dados em decisões estratégicas..." }
+    { 
+      icon: <FaChartLine size={40} color="#000000" />, 
+      title: "Controle Financeiro Completo", 
+      desc: "Nunca perca o controle do seu negócio! Cadastre receitas e despesas em segundos, acompanhe o fluxo de caixa em tempo real e tenha relatórios claros para entender a saúde da sua empresa. Nosso sistema permite também categorizar gastos, projetar cenários futuros e manter tudo organizado em um só lugar." 
+    },
+    { 
+      icon: <FaDollarSign size={40} color="#000000" />, 
+      title: "Pagamentos e Recebimentos Instantâneos", 
+      desc: "Receba pagamentos de clientes de forma rápida e segura, sem burocracia. Gere boletos, PIX e links de pagamento automaticamente. Tenha um histórico detalhado de todos os recebimentos, saiba quem já pagou e quem ainda está em aberto, e facilite sua gestão financeira sem esforço." 
+    },
+    { 
+      icon: <FaLightbulb size={40} color="#000000" />, 
+      title: "Relatórios e Insights Inteligentes", 
+      desc: "Transforme dados em decisões estratégicas! Nossa plataforma gera gráficos intuitivos e relatórios inteligentes para que você visualize tendências, encontre oportunidades de crescimento e evite desperdícios. É como ter um consultor financeiro disponível 24 horas por dia." 
+    }
   ];
+  
 
   return (
     <Router>
@@ -69,7 +86,7 @@ function App() {
               {/* Nova Seção */}
               <section className="info-section">
                 <div className="info-image">
-                  <img src="https://via.placeholder.com/450x300" alt="Gestão financeira" />
+                  <img src="/img/Gestão Financeira.png" alt="Gestão financeira" />
                 </div>
                 <div className="info-text">
                   <h2>Gestão financeira simples e eficiente</h2>
