@@ -1,4 +1,4 @@
-package com.gestao.financas.entity; 
+package com.gestao.financas.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -25,25 +25,23 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    /**
-     * Indica se a conta foi verificada por e-mail.
-     * Padrão: false até o usuário confirmar o registro.
-     */
+    // ===== Verificação de e-mail =====
     @Column(nullable = false)
     private boolean enabled = false;
 
-    /**
-     * Indica se a MFA (2FA) está ativada para o usuário.
-     */
+    // ===== MFA =====
     @Column(nullable = false)
     private boolean mfaEnabled = false;
 
-    /**
-     * Chave secreta usada para gerar códigos TOTP.
-     * Guardada apenas se MFA estiver habilitada.
-     */
     @Column(length = 100)
     private String mfaSecret;
+
+    // ===== Bloqueio de conta =====
+    @Column(nullable = false)
+    private int failedLoginAttempts = 0;
+
+    @Column
+    private Long lockTime; // timestamp em ms para desbloqueio automático
 
     // ===== Getters e Setters =====
     public Long getId() {
@@ -100,5 +98,21 @@ public class User {
 
     public void setMfaSecret(String mfaSecret) {
         this.mfaSecret = mfaSecret;
+    }
+
+    public int getFailedLoginAttempts() {
+        return failedLoginAttempts;
+    }
+
+    public void setFailedLoginAttempts(int failedLoginAttempts) {
+        this.failedLoginAttempts = failedLoginAttempts;
+    }
+
+    public Long getLockTime() {
+        return lockTime;
+    }
+
+    public void setLockTime(Long lockTime) {
+        this.lockTime = lockTime;
     }
 }
