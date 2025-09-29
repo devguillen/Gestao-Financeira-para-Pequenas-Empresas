@@ -13,7 +13,7 @@ O **FinançaPro** é um sistema completo de **gestão financeira para pequenas e
 - Autenticação de usuários (login)
 - Dashboard interativo
 
-O frontend é desenvolvido em **React** e o backend em **Node.js com TypeScript**, utilizando **Express** e **MySQL/PostgreSQL** como banco de dados.
+O frontend é desenvolvido em **React** e o backend em **Java**, utilizando **Spring Boot** e **MySQL/PostgreSQL** como banco de dados.
 
 ---
 
