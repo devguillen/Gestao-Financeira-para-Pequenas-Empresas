@@ -68,7 +68,7 @@ public class AuthService {
 
         securityLogService.logEvent(user.getId(), "LOGIN_SUCCESS", requestIp);
 
-        // Aqui você gera JWT ou sessão
+
         return "JWT_TOKEN_AQUI";
     }
 
