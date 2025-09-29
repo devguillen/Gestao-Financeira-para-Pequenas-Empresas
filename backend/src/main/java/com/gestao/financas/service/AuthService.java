@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.gestao.financas.entity.User;
 import com.gestao.financas.repository.UserRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Service
 public class AuthService {
 
@@ -14,7 +16,13 @@ public class AuthService {
     private UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder; // se estiver usando Spring Security
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private SecurityLogService securityLogService;
+
+    @Autowired
+    private HttpServletRequest request; // para capturar IP do usuário
 
     // ===== Constantes =====
     private static final int MAX_FAILED_ATTEMPTS = 5;
@@ -24,10 +32,13 @@ public class AuthService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
+        String requestIp = request.getRemoteAddr();
+
         // Verifica se a conta está bloqueada
         if (user.getLockTime() != null) {
             long currentTime = System.currentTimeMillis();
             if (currentTime < user.getLockTime()) {
+                securityLogService.logEvent(user.getId(), "LOGIN_FAILURE_BLOCKED", requestIp);
                 throw new RuntimeException("Conta bloqueada. Tente novamente mais tarde.");
             } else {
                 // Desbloquear conta após tempo
@@ -47,6 +58,7 @@ public class AuthService {
             }
 
             userRepository.save(user);
+            securityLogService.logEvent(user.getId(), "LOGIN_FAILURE", requestIp);
             throw new RuntimeException("Senha incorreta");
         }
 
@@ -54,7 +66,10 @@ public class AuthService {
         user.setFailedLoginAttempts(0);
         userRepository.save(user);
 
+        securityLogService.logEvent(user.getId(), "LOGIN_SUCCESS", requestIp);
+
         // Aqui você gera JWT ou sessão
         return "JWT_TOKEN_AQUI";
     }
+
 }
