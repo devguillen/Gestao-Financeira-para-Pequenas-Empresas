@@ -9,17 +9,20 @@
 html, body, #root, .App {
   width: 100%;
   min-height: 100vh;
+  background-color: #ffffff;
 }
 
 /* Cores */
 :root {
-  --primary-color: #ff6600;
-  --secondary-color: #ffffff;
-  --text-color: #333333;
-  --card-bg: #fff7f0;
-  --feedback-bg: #ffe6cc;
+  --primary-color: #000000; /* Preto principal */
+  --secondary-color: #ffffff; /* Branco */
+  --text-color: #e0e0e0; /* Cinza claro para textos em fundo escuro */
+  --card-bg: #ffffff; /* Branco nos cards */
+  --section-dark: #111111; /* Preto moderno para seções */
+  --section-light: #f5f5f5; /* Cinza claro */
 }
 
+/* Header */
 /* Header */
 .header {
   position: fixed;
@@ -34,20 +37,11 @@ html, body, #root, .App {
   z-index: 1000;
   padding: 0 50px;
   box-sizing: border-box;
-
-  /* cor laranja sólida + degradê pequeno no final */
-  background: linear-gradient(to bottom, #ff6600 0%, #ff6600 90%, rgba(255,102,0,0) 100%);
+  background: #000000; /* fundo preto sólido */
 }
-
-
 
 .header.hidden {
-  top: -100px; /* some para cima ao scroll */
-}
-
-
-.header.visible {
-  top: 0;
+  top: -100px;
 }
 
 .header .container {
@@ -62,73 +56,88 @@ html, body, #root, .App {
 .header .logo {
   font-size: 1.8rem;
   font-weight: 700;
+  color: var(--secondary-color);
 }
 
+/* Links */
 .header nav ul {
   list-style: none;
   display: flex;
-  gap: 25px;
+  gap: 20px;
 }
 
 .header nav ul li a {
   color: var(--secondary-color);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s, transform 0.3s;
+  padding: 10px 18px;
+  border-radius: 8px;
+  transition: background 0.3s, transform 0.3s;
+  border: 1px solid transparent;
 }
 
+/* Deixar visual como botões */
 .header nav ul li a:hover {
-  color: #ffd2b3;
-  transform: scale(1.05);
-  text-decoration: none;
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  border: 1px solid var(--secondary-color);
+  transform: translateY(-2px);
 }
 
-/* Hero Section */
+
+/* Hero Section (gráfico) */
 .hero {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  padding: 120px 5% 60px; /* padding-top maior por causa do header fixo */
-  background-color: var(--card-bg);
+  padding: 120px 5% 60px;
+  background-color: var(--section-dark); /* Preto elegante */
   gap: 40px;
   max-width: 1200px;
   width: 100%;
   margin: 30px auto;
+  border-radius: 20px;
 }
 
 .hero-text {
   flex: 1 1 400px;
   max-width: 600px;
-  text-align: center;
+  text-align: left; /* antes estava center */
 }
 
 .hero-text h2 {
   font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: var(--secondary-color);
+}
+
+.hero-text .slogan {
+  font-size: 1.3rem;
+  font-weight: 500;
   margin-bottom: 20px;
-  color: var(--primary-color);
+  color: #cccccc; /* cinza claro para diferenciar */
 }
 
 .hero-text p {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin-bottom: 30px;
   color: var(--text-color);
 }
 
+
 .section-divider {
   width: 80%;
-  height: 4px;
-  background-color: #ff6600;
-  margin: 20px auto; /* antes era 50px, agora mais perto */
+  height: 3px;
+  background-color: var(--primary-color);
+  margin: 40px auto;
   border-radius: 2px;
 }
 
-
-
 .btn-primary {
   display: inline-block;
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
   padding: 15px 35px;
   border-radius: 12px;
   text-decoration: none;
@@ -137,33 +146,59 @@ html, body, #root, .App {
 }
 
 .btn-primary:hover {
-  background-color: #e55a00;
+  background-color: #dddddd;
   transform: scale(1.05);
 }
 
 .hero-image {
-  flex: 1 1 400px;
-  max-width: 600px;
-}
-
-.hero-image img {
-  width: 100%;
-  object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-
-.cards {
+  flex: 1 1 600px;
+  max-width: 800px; /* antes 600px, agora maior */
   display: flex;
-  justify-content: space-between; /* alinha os cards nas extremidades e centro */
-  align-items: stretch;
-  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image canvas, 
+.hero-image svg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+/* Nova seção imagem + texto */
+.info-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
   padding: 60px 5%;
   max-width: 1200px;
   margin: auto;
-  margin-top: 10px;
 }
 
+.info-image img {
+  max-width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.info-text {
+  max-width: 500px;
+}
+
+.info-text h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.info-text p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  color: #555555;
+}
+
+/* Cards */
 .cards {
   display: flex;
   justify-content: space-between;
@@ -175,20 +210,20 @@ html, body, #root, .App {
 }
 
 .card {
-  background-color: var(--secondary-color);
+  background-color: var(--card-bg);
   border: 2px solid var(--primary-color);
   padding: 30px;
   flex: 1 1 0;
   max-width: 380px;
-  text-align: left; /* texto e título à esquerda */
-  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  text-align: left;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
   border-radius: 20px;
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.2);
 }
 
 .card-icon {
@@ -202,15 +237,14 @@ html, body, #root, .App {
 }
 
 .card p {
-  color: var(--text-color);
+  color: #444;
   font-size: 1rem;
   line-height: 1.6;
 }
 
-
 /* Feedbacks */
 .feedbacks {
-  background-color: var(--feedback-bg);
+  background-color: var(--section-light); /* cinza claro */
   padding: 60px 5%;
   text-align: center;
 }
@@ -233,6 +267,7 @@ html, body, #root, .App {
   flex: 1 1 250px;
   max-width: 300px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  border-radius: 15px;
   transition: transform 0.3s;
 }
 
@@ -243,19 +278,12 @@ html, body, #root, .App {
 .feedback-card p {
   font-style: italic;
   margin-bottom: 15px;
+  color: #555;
 }
 
 .feedback-card h4 {
   color: var(--primary-color);
 }
-
-.hero-image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
 
 /* Responsivo */
 @media (max-width: 900px) {
@@ -264,12 +292,21 @@ html, body, #root, .App {
     text-align: center;
   }
   
-  .hero-text, .hero-image {
-    padding: 10px;
-  }
-
   .cards, .feedback-list {
     flex-direction: column;
     align-items: center;
+  }
+
+  .info-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .info-image {
+    order: -1;
+  }
+
+  .info-text {
+    max-width: 100%;
   }
 }
