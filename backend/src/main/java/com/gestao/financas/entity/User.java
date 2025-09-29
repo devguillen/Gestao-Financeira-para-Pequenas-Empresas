@@ -1,4 +1,5 @@
 package com.gestao.financas.entity; 
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -30,6 +31,19 @@ public class User {
      */
     @Column(nullable = false)
     private boolean enabled = false;
+
+    /**
+     * Indica se a MFA (2FA) está ativada para o usuário.
+     */
+    @Column(nullable = false)
+    private boolean mfaEnabled = false;
+
+    /**
+     * Chave secreta usada para gerar códigos TOTP.
+     * Guardada apenas se MFA estiver habilitada.
+     */
+    @Column(length = 100)
+    private String mfaSecret;
 
     // ===== Getters e Setters =====
     public Long getId() {
@@ -70,5 +84,21 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public boolean isMfaEnabled() {
+        return mfaEnabled;
+    }
+
+    public void setMfaEnabled(boolean mfaEnabled) {
+        this.mfaEnabled = mfaEnabled;
+    }
+
+    public String getMfaSecret() {
+        return mfaSecret;
+    }
+
+    public void setMfaSecret(String mfaSecret) {
+        this.mfaSecret = mfaSecret;
     }
 }
