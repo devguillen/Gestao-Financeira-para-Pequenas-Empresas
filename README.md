@@ -28,8 +28,8 @@ O frontend é desenvolvido em **React** e o backend em **Java**, utilizando **Sp
 
 **Backend:**
 
-- Node.js + TypeScript
-- Express
+- Java
+- Spring Boot
 - JWT (para autenticação, opcional)
 - Mysql
 - Dotenv para variáveis de ambiente
