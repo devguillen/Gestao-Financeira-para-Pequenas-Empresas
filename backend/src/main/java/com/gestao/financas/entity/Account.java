@@ -3,6 +3,7 @@ package com.gestao.financas.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "accounts")
@@ -14,21 +15,22 @@ public class Account {
 
     @NotBlank
     @Column(nullable = false)
-    private String name;
+    private String name; // Ex.: Conta Corrente, Poupança, Carteira
 
     @NotBlank
     @Column(nullable = false)
-    private String type; // ex: "Corrente", "Poupança", "Cartão de Crédito"
+    private String type; // Ex.: "bank", "cash", "investment"
 
     @NotNull
     @Column(nullable = false)
-    private Double balance = 0.0;
+    private BigDecimal balance = BigDecimal.ZERO; // Saldo inicial
 
-    @ManyToOne
+    // Relacionamento com User (cada conta pertence a um usuário)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    // ===== Getters e Setters =====
+    // ===== Getters & Setters =====
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -38,8 +40,8 @@ public class Account {
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
 
-    public Double getBalance() { return balance; }
-    public void setBalance(Double balance) { this.balance = balance; }
+    public BigDecimal getBalance() { return balance; }
+    public void setBalance(BigDecimal balance) { this.balance = balance; }
 
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
