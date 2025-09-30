@@ -3,7 +3,7 @@ package com.gestao.financas.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import com.gestao.financas.security.CryptoUtil; 
+import com.gestao.financas.security.CryptoUtil; // Importa a classe CryptoUtil
 
 @Entity
 @Table(name = "users")
