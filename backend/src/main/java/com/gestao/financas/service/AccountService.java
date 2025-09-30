@@ -3,7 +3,9 @@ package com.gestao.financas.service;
 import com.gestao.financas.entity.Account;
 import com.gestao.financas.repository.AccountRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -36,5 +38,24 @@ public class AccountService {
 
     public void deleteAccount(Long accountId) {
         accountRepository.deleteById(accountId);
+    }
+
+    // ===== Transferência entre contas =====
+    @Transactional
+    public void transfer(Long fromAccountId, Long toAccountId, BigDecimal amount) {
+        Account from = accountRepository.findById(fromAccountId)
+                .orElseThrow(() -> new RuntimeException("Conta de origem não encontrada"));
+        Account to = accountRepository.findById(toAccountId)
+                .orElseThrow(() -> new RuntimeException("Conta de destino não encontrada"));
+
+        if (from.getBalance().compareTo(amount) < 0) {
+            throw new RuntimeException("Saldo insuficiente para transferência");
+        }
+
+        from.setBalance(from.getBalance().subtract(amount));
+        to.setBalance(to.getBalance().add(amount));
+
+        accountRepository.save(from);
+        accountRepository.save(to);
     }
 }

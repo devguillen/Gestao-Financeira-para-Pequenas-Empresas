@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "transactions")
@@ -23,7 +24,7 @@ public class Transaction {
 
     @NotNull
     @Column(nullable = false)
-    private String category; // ex.: Alimentação, Transporte, Salário
+    private String category;
 
     @Column(length = 255)
     private String description;
@@ -35,6 +36,14 @@ public class Transaction {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
+
+    // ===== Parcelamento / Subtransações =====
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_transaction_id")
+    private Transaction parentTransaction;
+
+    @OneToMany(mappedBy = "parentTransaction", cascade = CascadeType.ALL)
+    private List<Transaction> subTransactions;
 
     // ===== Getters & Setters =====
     public Long getId() { return id; }
@@ -57,4 +66,10 @@ public class Transaction {
 
     public Account getAccount() { return account; }
     public void setAccount(Account account) { this.account = account; }
+
+    public Transaction getParentTransaction() { return parentTransaction; }
+    public void setParentTransaction(Transaction parentTransaction) { this.parentTransaction = parentTransaction; }
+
+    public List<Transaction> getSubTransactions() { return subTransactions; }
+    public void setSubTransactions(List<Transaction> subTransactions) { this.subTransactions = subTransactions; }
 }

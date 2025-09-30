@@ -11,32 +11,30 @@ import java.util.List;
 @RequestMapping("/api/transactions")
 public class TransactionController {
 
-    private final TransactionService transactionService;
+    private final TransactionService service;
 
-    public TransactionController(TransactionService transactionService) {
-        this.transactionService = transactionService;
+    public TransactionController(TransactionService service) {
+        this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity<Transaction> createTransaction(@RequestBody Transaction transaction) {
-        return ResponseEntity.ok(transactionService.createTransaction(transaction));
+    public ResponseEntity<Transaction> create(@RequestBody Transaction transaction) {
+        return ResponseEntity.ok(service.createTransaction(transaction));
     }
 
     @GetMapping("/account/{accountId}")
-    public ResponseEntity<List<Transaction>> getTransactionsByAccount(@PathVariable Long accountId) {
-        return ResponseEntity.ok(transactionService.getTransactionsByAccount(accountId));
+    public ResponseEntity<List<Transaction>> getByAccount(@PathVariable Long accountId) {
+        return ResponseEntity.ok(service.getTransactionsByAccount(accountId));
     }
 
-    @GetMapping("/account/{accountId}/category/{category}")
-    public ResponseEntity<List<Transaction>> getTransactionsByCategory(
-            @PathVariable Long accountId,
-            @PathVariable String category) {
-        return ResponseEntity.ok(transactionService.getTransactionsByCategory(accountId, category));
+    @GetMapping("/subtransactions/{parentId}")
+    public ResponseEntity<List<Transaction>> getSubTransactions(@PathVariable Long parentId) {
+        return ResponseEntity.ok(service.getSubTransactions(parentId));
     }
 
     @DeleteMapping("/{transactionId}")
-    public ResponseEntity<Void> deleteTransaction(@PathVariable Long transactionId) {
-        transactionService.deleteTransaction(transactionId);
+    public ResponseEntity<Void> delete(@PathVariable Long transactionId) {
+        service.deleteTransaction(transactionId);
         return ResponseEntity.noContent().build();
     }
 }

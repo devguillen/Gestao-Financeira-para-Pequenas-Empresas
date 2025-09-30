@@ -2,13 +2,11 @@ package com.gestao.financas.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-@Table(name = "accounts")
-public class Account {
+@Table(name = "categories")
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,23 +14,15 @@ public class Account {
 
     @NotBlank
     @Column(nullable = false)
-    private String name; // Ex.: Conta Corrente, Poupança, Carteira
+    private String name; // Ex.: Alimentação, Transporte, Lazer
 
-    @NotBlank
-    @Column(nullable = false)
-    private String type; // Ex.: "bank", "cash", "investment"
-
-    @NotNull
-    @Column(nullable = false)
-    private BigDecimal balance = BigDecimal.ZERO; // Saldo inicial
-
-    // Relacionamento com User (cada conta pertence a um usuário)
+    // Relacionamento com o usuário (categorias podem ser customizadas por usuário)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    // ===== Relacionamento com transações =====
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    // Relacionamento com transações
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Transaction> transactions;
 
     // ===== Getters & Setters =====
@@ -42,16 +32,9 @@ public class Account {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
-
-    public BigDecimal getBalance() { return balance; }
-    public void setBalance(BigDecimal balance) { this.balance = balance; }
-
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
 
     public List<Transaction> getTransactions() { return transactions; }
     public void setTransactions(List<Transaction> transactions) { this.transactions = transactions; }
 }
-    

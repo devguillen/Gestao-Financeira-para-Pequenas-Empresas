@@ -5,6 +5,7 @@ import com.gestao.financas.service.AccountService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -38,5 +39,16 @@ public class AccountController {
     public ResponseEntity<Void> deleteAccount(@PathVariable Long accountId) {
         accountService.deleteAccount(accountId);
         return ResponseEntity.noContent().build();
+    }
+
+    // ===== Novo endpoint para transferência entre contas =====
+    @PostMapping("/transfer")
+    public ResponseEntity<String> transfer(
+            @RequestParam Long fromAccountId,
+            @RequestParam Long toAccountId,
+            @RequestParam BigDecimal amount) {
+
+        accountService.transfer(fromAccountId, toAccountId, amount);
+        return ResponseEntity.ok("Transferência realizada com sucesso");
     }
 }

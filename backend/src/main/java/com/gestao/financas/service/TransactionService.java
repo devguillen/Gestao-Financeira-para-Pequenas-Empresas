@@ -9,25 +9,25 @@ import java.util.List;
 @Service
 public class TransactionService {
 
-    private final TransactionRepository transactionRepository;
+    private final TransactionRepository repository;
 
-    public TransactionService(TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
+    public TransactionService(TransactionRepository repository) {
+        this.repository = repository;
     }
 
     public Transaction createTransaction(Transaction transaction) {
-        return transactionRepository.save(transaction);
+        return repository.save(transaction);
     }
 
     public List<Transaction> getTransactionsByAccount(Long accountId) {
-        return transactionRepository.findByAccountId(accountId);
+        return repository.findByAccountId(accountId);
     }
 
-    public List<Transaction> getTransactionsByCategory(Long accountId, String category) {
-        return transactionRepository.findByAccountIdAndCategory(accountId, category);
+    public List<Transaction> getSubTransactions(Long parentTransactionId) {
+        return repository.findByParentTransactionId(parentTransactionId);
     }
 
     public void deleteTransaction(Long transactionId) {
-        transactionRepository.deleteById(transactionId);
+        repository.deleteById(transactionId);
     }
 }
