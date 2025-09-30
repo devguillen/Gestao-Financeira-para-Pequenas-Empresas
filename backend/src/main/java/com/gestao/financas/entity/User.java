@@ -3,6 +3,7 @@ package com.gestao.financas.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import com.gestao.financas.security.CryptoUtil; 
 
 @Entity
 @Table(name = "users")
@@ -23,7 +24,7 @@ public class User {
     @Email
     @NotBlank
     @Column(nullable = false, unique = true)
-    private String email;
+    private String email; // será criptografado no banco
 
     // ===== Verificação de e-mail =====
     @Column(nullable = false)
@@ -68,12 +69,13 @@ public class User {
         this.password = password;
     }
 
+    // ===== Criptografia no e-mail =====
     public String getEmail() {
-        return email;
+        return email != null ? CryptoUtil.decrypt(email) : null;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email != null ? CryptoUtil.encrypt(email) : null;
     }
 
     public boolean isEnabled() {
