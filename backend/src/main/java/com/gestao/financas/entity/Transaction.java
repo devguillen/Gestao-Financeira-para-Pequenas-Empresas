@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "transactions")
@@ -45,6 +47,15 @@ public class Transaction {
     @OneToMany(mappedBy = "parentTransaction", cascade = CascadeType.ALL)
     private List<Transaction> subTransactions;
 
+    // ===== Tags / Rótulos =====
+    @ManyToMany
+    @JoinTable(
+            name = "transaction_tags",
+            joinColumns = @JoinColumn(name = "transaction_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tags = new HashSet<>();
+
     // ===== Getters & Setters =====
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -72,4 +83,7 @@ public class Transaction {
 
     public List<Transaction> getSubTransactions() { return subTransactions; }
     public void setSubTransactions(List<Transaction> subTransactions) { this.subTransactions = subTransactions; }
+
+    public Set<Tag> getTags() { return tags; }
+    public void setTags(Set<Tag> tags) { this.tags = tags; }
 }
