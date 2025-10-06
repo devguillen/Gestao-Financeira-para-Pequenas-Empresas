@@ -4,6 +4,7 @@ import com.gestao.financas.dto.FinancialSummaryDTO;
 import com.gestao.financas.dto.TransactionChartDTO;
 import com.gestao.financas.entity.Transaction;
 import com.gestao.financas.repository.TransactionRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -18,13 +19,19 @@ import java.util.stream.Collectors;
 public class TransactionService {
 
     private final TransactionRepository repository;
+    private final AlertService alertService; // ✅ Novo serviço de alertas
 
-    public TransactionService(TransactionRepository repository) {
+    public TransactionService(TransactionRepository repository, AlertService alertService) {
         this.repository = repository;
+        this.alertService = alertService;
     }
 
+    // ✅ Criação de transação com verificação de alertas inteligentes
+    @Transactional
     public Transaction createTransaction(Transaction transaction) {
-        return repository.save(transaction);
+        Transaction saved = repository.save(transaction);
+        alertService.checkAndCreateAlert(saved); // dispara alerta se necessário
+        return saved;
     }
 
     public List<Transaction> getTransactionsByAccount(Long accountId) {
@@ -39,7 +46,7 @@ public class TransactionService {
         repository.deleteById(transactionId);
     }
 
-    // Resumo financeiro por período
+    // 📊 Resumo financeiro por período
     public FinancialSummaryDTO getFinancialSummary(Long userId, LocalDateTime startDate, LocalDateTime endDate) {
         List<Transaction> transactions = repository.findByUserAndPeriod(userId, startDate, endDate);
 
@@ -56,7 +63,7 @@ public class TransactionService {
         return new FinancialSummaryDTO(totalIncome, totalExpense);
     }
 
-    // 🔥 Gráficos comparativos: receitas vs despesas por categoria
+    // 📈 Gráficos comparativos: receitas vs despesas por categoria
     public List<TransactionChartDTO> getCategoryComparison(Long userId, LocalDateTime startDate, LocalDateTime endDate) {
         List<Transaction> transactions = repository.findByUserAndPeriod(userId, startDate, endDate);
 
@@ -78,7 +85,7 @@ public class TransactionService {
                 .collect(Collectors.toList());
     }
 
-    // 🔮 Projeção de saldo futuro
+    // 🔮 Projeção de saldo futuro baseada no histórico
     public Map<LocalDate, BigDecimal> projectFutureBalance(Long userId, int daysAhead) {
         List<Transaction> transactions = repository.findByAccountUserId(userId);
 

@@ -35,9 +35,15 @@ public class Transaction {
     @Column(nullable = false)
     private LocalDateTime date;
 
+    // ===== Conta associada =====
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
+
+    // ===== Usuário dono da transação =====
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     // ===== Parcelamento / Subtransações =====
     @ManyToOne(fetch = FetchType.LAZY)
@@ -77,6 +83,9 @@ public class Transaction {
 
     public Account getAccount() { return account; }
     public void setAccount(Account account) { this.account = account; }
+
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 
     public Transaction getParentTransaction() { return parentTransaction; }
     public void setParentTransaction(Transaction parentTransaction) { this.parentTransaction = parentTransaction; }
