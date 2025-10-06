@@ -2,6 +2,7 @@ package com.gestao.financas.service;
 
 import com.gestao.financas.dto.FinancialSummaryDTO;
 import com.gestao.financas.dto.TransactionChartDTO;
+import com.gestao.financas.dto.TaxReportDTO;
 import com.gestao.financas.entity.Transaction;
 import com.gestao.financas.repository.TransactionRepository;
 import jakarta.transaction.Transactional;
@@ -10,23 +11,21 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class TransactionService {
 
     private final TransactionRepository repository;
-    private final AlertService alertService; // ✅ Novo serviço de alertas
+    private final AlertService alertService;
 
     public TransactionService(TransactionRepository repository, AlertService alertService) {
         this.repository = repository;
         this.alertService = alertService;
     }
 
-    // ✅ Criação de transação com verificação de alertas inteligentes
+    // Criação de transação com verificação de alertas inteligentes
     @Transactional
     public Transaction createTransaction(Transaction transaction) {
         Transaction saved = repository.save(transaction);
@@ -46,7 +45,7 @@ public class TransactionService {
         repository.deleteById(transactionId);
     }
 
-    // 📊 Resumo financeiro por período
+    // Resumo financeiro por período
     public FinancialSummaryDTO getFinancialSummary(Long userId, LocalDateTime startDate, LocalDateTime endDate) {
         List<Transaction> transactions = repository.findByUserAndPeriod(userId, startDate, endDate);
 
@@ -63,9 +62,10 @@ public class TransactionService {
         return new FinancialSummaryDTO(totalIncome, totalExpense);
     }
 
-    // 📈 Gráficos comparativos: receitas vs despesas por categoria
+    // Gráficos comparativos: receitas vs despesas por categoria
     public List<TransactionChartDTO> getCategoryComparison(Long userId, LocalDateTime startDate, LocalDateTime endDate) {
         List<Transaction> transactions = repository.findByUserAndPeriod(userId, startDate, endDate);
+
 
         Map<String, Map<String, BigDecimal>> grouped = transactions.stream()
                 .collect(Collectors.groupingBy(
@@ -85,7 +85,7 @@ public class TransactionService {
                 .collect(Collectors.toList());
     }
 
-    // 🔮 Projeção de saldo futuro baseada no histórico
+    // Projeção de saldo futuro baseada no histórico
     public Map<LocalDate, BigDecimal> projectFutureBalance(Long userId, int daysAhead) {
         List<Transaction> transactions = repository.findByAccountUserId(userId);
 
@@ -124,5 +124,31 @@ public class TransactionService {
         }
 
         return dailyBalance;
+    }
+
+    // Relatório fiscal simplificado
+    public List<TaxReportDTO> generateTaxReport(Long userId, LocalDateTime startDate, LocalDateTime endDate) {
+        List<Transaction> transactions = repository.findByUserAndPeriod(userId, startDate, endDate);
+
+
+        Map<String, TaxReportDTO> reportMap = new HashMap<>();
+
+        for (Transaction t : transactions) {
+            reportMap.putIfAbsent(t.getCategory(), new TaxReportDTO());
+            TaxReportDTO dto = reportMap.get(t.getCategory());
+            dto.setCategory(t.getCategory());
+
+            if ("income".equalsIgnoreCase(t.getType())) {
+                dto.setTotalIncome(dto.getTotalIncome() == null ? t.getAmount() : dto.getTotalIncome().add(t.getAmount()));
+            } else {
+                dto.setTotalExpense(dto.getTotalExpense() == null ? t.getAmount() : dto.getTotalExpense().add(t.getAmount()));
+            }
+
+            BigDecimal income = dto.getTotalIncome() != null ? dto.getTotalIncome() : BigDecimal.ZERO;
+            BigDecimal expense = dto.getTotalExpense() != null ? dto.getTotalExpense() : BigDecimal.ZERO;
+            dto.setTaxDue(income.subtract(expense).multiply(BigDecimal.valueOf(0.15))); // 15% de imposto sobre lucro
+        }
+
+        return new ArrayList<>(reportMap.values());
     }
 }
