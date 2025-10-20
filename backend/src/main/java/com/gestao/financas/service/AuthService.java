@@ -1,6 +1,5 @@
 package com.gestao.financas.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,21 +11,24 @@ import jakarta.servlet.http.HttpServletRequest;
 @Service
 public class AuthService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private SecurityLogService securityLogService;
-
-    @Autowired
-    private HttpServletRequest request; // para capturar IP do usuário
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final SecurityLogService securityLogService;
+    private final HttpServletRequest request;
 
     // ===== Constantes =====
     private static final int MAX_FAILED_ATTEMPTS = 5;
     private static final long LOCK_TIME_DURATION = 15 * 60 * 1000; // 15 minutos
+
+    public AuthService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder,
+                       SecurityLogService securityLogService,
+                       HttpServletRequest request) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.securityLogService = securityLogService;
+        this.request = request;
+    }
 
     public String login(String username, String password) {
         User user = userRepository.findByUsername(username)
@@ -68,8 +70,6 @@ public class AuthService {
 
         securityLogService.logEvent(user.getId(), "LOGIN_SUCCESS", requestIp);
 
-
         return "JWT_TOKEN_AQUI";
     }
-
 }

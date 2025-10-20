@@ -1,37 +1,39 @@
-version: '3.8'
+version: "3.9"
 
 services:
-  backend:
-    build: ./backend
-    container_name: backend
-    ports:
-      - "8080:8080"
+  db:
+    image: mariadb:11.1  # versão estável recente
+    container_name: financas_db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/financas
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=postgres
+      MARIADB_ROOT_PASSWORD: 12345678
+      MARIADB_DATABASE: financas_pessoais
+      MARIADB_USER: root
+      MARIADB_PASSWORD: 12345678
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - financas-network
+
+  backend:
+    build: .
+    container_name: financas_backend
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/financas_pessoais
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 12345678
+      SERVER_PORT: 8081
     depends_on:
       - db
-
-  frontend:
-    build: ./frontend
-    container_name: frontend
-    ports:
-      - "3000:80"
-    depends_on:
-      - backend
-
-  db:
-    image: postgres:15
-    container_name: postgres
-    environment:
-      POSTGRES_DB: financas
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+    networks:
+      - financas-network
 
 volumes:
-  pgdata:
+  db_data:
+
+networks:
+  financas-network:
+    driver: bridge

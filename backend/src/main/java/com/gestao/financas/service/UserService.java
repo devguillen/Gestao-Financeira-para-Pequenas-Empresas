@@ -23,6 +23,11 @@ public class UserService {
         return repository.save(user);
     }
 
+    public UserService(UserRepository repository, PasswordEncoder encoder) {
+        this.repository = repository;
+        this.encoder = encoder;
+    }
+
     public Optional<User> findByUsername(String username) {
         return repository.findByUsername(username);
     }

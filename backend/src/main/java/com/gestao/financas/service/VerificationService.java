@@ -20,6 +20,10 @@ public class VerificationService {
         VerificationToken token = VerificationToken.create(user);
         return tokenRepo.save(token);
     }
+    public VerificationService(VerificationTokenRepository tokenRepo, UserRepository userRepo) {
+        this.tokenRepo = tokenRepo;
+        this.userRepo = userRepo;
+    }
 
     public boolean verifyUser(String token) {
         return tokenRepo.findByToken(token).map(vt -> {
