@@ -16,6 +16,7 @@ import java.util.UUID;
 @Service
 public class PasswordService {
 
+
     @Autowired
     private UserRepository userRepository;
 
@@ -27,6 +28,16 @@ public class PasswordService {
 
     @Autowired
     private PasswordEncoder encoder;
+
+    public PasswordService(UserRepository userRepository, 
+                           PasswordResetTokenRepository tokenRepository, 
+                           JavaMailSender mailSender,
+                           PasswordEncoder encoder) {
+        this.userRepository = userRepository;
+        this.tokenRepository = tokenRepository;
+        this.mailSender = mailSender;
+        this.encoder = encoder;
+        }
 
     public void createPasswordResetToken(String email) {
         User user = userRepository.findByUsername(email)

@@ -44,6 +44,7 @@ public class User {
     @Column
     private Long lockTime; // timestamp em ms para desbloqueio automático
 
+
     // ===== Getters e Setters =====
     public Long getId() {
         return id;
