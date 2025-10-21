@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { FaChartLine, FaDollarSign, FaLightbulb, FaArrowRight, FaLock, FaShieldAlt, FaFileContract, FaChevronRight } from 'react-icons/fa';
+import { FaChartLine, FaDollarSign, FaLightbulb, FaLock, FaShieldAlt, FaFileContract, FaChevronRight } from 'react-icons/fa';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Register from "./pages/Register";
-import Login from "./pages/Login"; 
+import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 
 function App() {
@@ -30,20 +30,20 @@ function App() {
   };
 
   const cards = [
-    { 
+    {
       icon: <FaChartLine size={30} />,
-      title: "Controle Financeiro Completo", 
-      desc: "Nunca perca o controle do seu negócio! Cadastre receitas e despesas em segundos, acompanhe o fluxo de caixa em tempo real e tenha relatórios claros para entender a saúde da sua empresa. Nosso sistema permite também categorizar gastos, projetar cenários futuros e manter tudo organizado em um só lugar." 
+      title: "Controle Financeiro Completo",
+      desc: "Nunca perca o controle do seu negócio! Cadastre receitas e despesas em segundos, acompanhe o fluxo de caixa em tempo real e tenha relatórios claros para entender a saúde da sua empresa. Nosso sistema permite também categorizar gastos, projetar cenários futuros e manter tudo organizado em um só lugar."
     },
-    { 
-      icon: <FaDollarSign size={30} />, 
-      title: "Pagamentos e Recebimentos Instantâneos", 
-      desc: "Receba pagamentos de clientes de forma rápida e segura, sem burocracia. Gere boletos, PIX e links de pagamento automaticamente. Tenha um histórico detalhado de todos os recebimentos, saiba quem já pagou e quem ainda está em aberto, e facilite sua gestão financeira sem esforço." 
+    {
+      icon: <FaDollarSign size={30} />,
+      title: "Pagamentos e Recebimentos Instantâneos",
+      desc: "Receba pagamentos de clientes de forma rápida e segura, sem burocracia. Gere boletos, PIX e links de pagamento automaticamente. Tenha um histórico detalhado de todos os recebimentos, saiba quem já pagou e quem ainda está em aberto, e facilite sua gestão financeira sem esforço."
     },
-    { 
-      icon: <FaLightbulb size={30} />, 
-      title: "Relatórios e Insights Inteligentes", 
-      desc: "Transforme dados em decisões estratégicas! Nossa plataforma gera gráficos intuitivos e relatórios inteligentes para que você visualize tendências, encontre oportunidades de crescimento e evite desperdícios. É como ter um consultor financeiro disponível 24 horas por dia." 
+    {
+      icon: <FaLightbulb size={30} />,
+      title: "Relatórios e Insights Inteligentes",
+      desc: "Transforme dados em decisões estratégicas! Nossa plataforma gera gráficos intuitivos e relatórios inteligentes para que você visualize tendências, encontre oportunidades de crescimento e evite desperdícios. É como ter um consultor financeiro disponível 24 horas por dia."
     }
   ];
 
@@ -64,12 +64,10 @@ function App() {
       desc: "Você define quem pode ver e editar as informações financeiras da sua empresa. Permissões de usuário detalhadas garantem que cada membro da equipe acesse apenas o necessário."
     }
   ];
-  
 
   return (
     <Router>
       <div className="App">
-        {/* Header - Navbar com efeito de vidro fosco (blur) */}
         <header className={`header ${hideHeader ? 'hidden' : ''}`}>
           <div className="container">
             <h1 className="logo">FinançaPro</h1>
@@ -87,54 +85,45 @@ function App() {
 
         <Routes>
         <Route path="/" element={
-            <main>
-              {/* 1. Hero Section (Destaque principal) */}
-              <section className="hero">
-                <div className="hero-content-wrapper">
-                  {/* Imagem Matheus (Esquerda) */}
-                  <div className="hero-image left-image">
-                    <img src="/img/Matheus.png" alt="Matheus - Gerenciamento" />
-                  </div>
+            <main>
+              <section className="hero">
+                <div className="hero-content-wrapper">
+                  <div className="hero-image left-image">
+                    <img src="/img/Matheus.png" alt="Matheus - Gerenciamento" />
+                  </div>
 
-{/* Texto Centralizado */}
-                  <div className="hero-text center-text">
-                    {/* NOVO H2 COM QUEBRA DE LINHA FORÇADA */}
-                    <h2>
-                      <span className="orange-text">CONTROLE FINANCEIRO</span>
-                      <br /> {/* FORÇA QUEBRA DE LINHA AQUI! */}
-                      MODERNO E PRÁTICO
-                    </h2>
-                    <p className="slogan">Transforme sua forma de lidar com dinheiro em poucos cliques.</p>
-                    {/* ... O botão de CTA permanece aqui ... */}
-                  </div>
+                  <div className="hero-text center-text">
+                    <h2>
+                      <span className="orange-text">CONTROLE FINANCEIRO</span>
+                      <br />
+                      MODERNO&nbsp;E&nbsp;PRÁTICO
+                    </h2>
+                    <p className="slogan">Transforme sua forma de lidar com dinheiro em poucos cliques.</p>
 
-                  {/* Imagem Kaic (Direita) */}
-                  <div className="hero-image right-image">
-                    <img src="/img/Kaic.png" alt="Controle financeiro" /> 
-                  </div>
-                </div>
-              </section>
-{/* 2. Seção de Confiança (Social Proof) - Carrossel Infinito com Neon Preto */}
+                    <Link to="/Register" className="btn-primary">VAMOS COMEÇAR!</Link>
+
+                  </div>
+
+                  <div className="hero-image right-image">
+                    <img src="/img/Kaic.png" alt="Controle financeiro" />
+                  </div>
+                </div>
+              </section>
+
 <section className="trust-bar">
-  {/* O texto é repetido DENTRO desta div para criar o loop visual perfeito com a animação de -100% */}
   <div className="marquee-content">
-    {/* Bloco 1: Conteúdo Principal */}
     A solução de Gestão Financeira com a seriedade que seu negócio precisa. &bull;&nbsp;&nbsp;
     A solução de Gestão Financeira com a seriedade que seu negócio precisa. &bull;&nbsp;&nbsp;
     A solução de Gestão Financeira com a seriedade que seu negócio precisa. &bull;&nbsp;&nbsp;
-    
-    {/* Bloco 2: Cópia Exata para Repetição Perfeita */}
     A solução de Gestão Financeira com a seriedade que seu negócio precisa. &bull;&nbsp;&nbsp;
     A solução de Gestão Financeira com a seriedade que seu negócio precisa. &bull;&nbsp;&nbsp;
     A solução de Gestão Financeira com a seriedade que seu negócio precisa. &bull;&nbsp;&nbsp;
   </div>
 </section>
 
-              {/* 3. Nova Seção Imagem + Texto (Gestão Simples) */}
               <section className="info-section">
                 <div className="info-content">
                   <div className="info-image-container">
-                    {/* Assumindo que a imagem Gestão Financeira.png está em /public/img/ */}
                     <img src="/img/Gestão Financeira.png" alt="Gestão financeira" />
                   </div>
                   <div className="info-divider-line"></div>
@@ -148,15 +137,13 @@ function App() {
                   </div>
                 </div>
               </section>
-              
-              {/* Separador visual mais robusto */}
+
               <div className="section-separator"></div>
 
-              {/* 4. Cards Section (Recursos) */}
               <section className="cards">
                 {cards.map((card, index) => (
-                  <div 
-                    key={index} 
+                  <div
+                    key={index}
                     className={`card ${expandedCardIndex === index ? 'expanded' : ''}`}
                     onClick={() => toggleCard(index)}
                   >
@@ -170,10 +157,8 @@ function App() {
                 ))}
               </section>
 
-              {/* Separador visual mais robusto */}
               <div className="section-separator"></div>
 
-              {/* 5. Seção de Segurança e Transparência */}
               <section className="security-section">
                 <h2>Segurança e Transparência em Primeiro Lugar</h2>
                 <div className="security-cards">
@@ -187,7 +172,6 @@ function App() {
                 </div>
               </section>
 
-              {/* 6. CTA Final */}
               <section className="final-cta">
                 <h2>Pronto para levar a sua gestão ao próximo nível?</h2>
                 <p>Junte-se a milhares de empresas que transformaram suas finanças com FinançaPro.</p>
@@ -195,8 +179,7 @@ function App() {
                   Crie sua Conta Grátis Agora!
                 </Link>
               </section>
-              
-              {/* 7. Footer Moderno */}
+
               <footer>
                 <p>&copy; {new Date().getFullYear()} FinançaPro. Todos os direitos reservados.</p>
               </footer>

@@ -6,27 +6,18 @@
 }
 
 :root {
-    /* Cores Principais */
-    --primary-color: #003366; 
-    --secondary-color: #DAA520; 
-    
-    /* Cores de Fundo */
-    --section-dark: #1F1F1F; 
-    --section-light: #FBFBFB; 
+    --primary-color: #003366;
+    --secondary-color: #DAA520;
+    --section-dark: #1F1F1F;
+    --section-light: #FBFBFB;
     --card-bg: #ffffff;
-    
-    /* Cores de Texto */
-    --text-dark: #333333; 
-    --text-light: #F0F0F0; 
-    --text-slogan: #A0A0A0; 
-    
-    /* CTAs */
+    --text-dark: #333333;
+    --text-light: #F0F0F0;
+    --text-slogan: #A0A0A0;
     --cta-bg: var(--secondary-color);
-    --cta-hover: #EEDD82; 
-    
-    /* Tipografia */
-    --font-heading: 'Inter', sans-serif; 
-    --font-body: 'Inter', sans-serif; 
+    --cta-hover: #EEDD82;
+    --font-heading: 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
 }
 
 html, body, #root, .App {
@@ -74,7 +65,6 @@ html, body, #root, .App {
     font-family: var(--font-heading);
 }
 
-/* Links do Header com Animação da Linha */
 .header nav ul {
     list-style: none;
     display: flex;
@@ -86,38 +76,33 @@ html, body, #root, .App {
     text-decoration: none;
     font-weight: 500;
     padding: 10px 15px;
-    
-    /* Para posicionar o pseudo-elemento */
-    position: relative; 
-    
-    /* Transição de cor */
+    position: relative;
     transition: color 0.3s;
 }
 
 .header nav ul li a::after {
     content: '';
     position: absolute;
-    bottom: 5px; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    width: 0; /* Começa invisível */
-    height: 2px; 
-    background-color: var(--secondary-color); 
-    transition: width 0.3s ease-out; /* Animação na largura */
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: var(--secondary-color);
+    transition: width 0.3s ease-out;
 }
 
 .header nav ul li a:hover {
     background: transparent;
-    color: var(--secondary-color); 
-    transform: translateY(0); 
+    color: var(--secondary-color);
+    transform: translateY(0);
     border: none;
 }
 
 .header nav ul li a:hover::after {
-    width: calc(100% - 30px); /* Expande do centro para os lados (100% da largura do link menos 15px de padding em cada lado) */
+    width: calc(100% - 30px);
 }
 
-/* Botões CTA */
 .btn-primary {
     display: inline-block;
     background-color: var(--cta-bg);
@@ -154,35 +139,27 @@ html, body, #root, .App {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-
-/* Hero Section */
-/* Hero Section */
 .hero {
-    padding: 120px 0 0; 
-    background-color: var(--section-dark); 
+    padding: 0;
+    background-color: var(--section-dark);
     color: var(--text-light);
     max-width: 100%;
     margin: 0 auto;
     border-radius: 0;
     position: relative;
     overflow: hidden;
-    
     background-image: url('/img/Gestão Financeira.png');
     background-size: cover;
-    background-position: center center;
+    background-position: center top;
     background-repeat: no-repeat;
-    
     z-index: 1;
-
     display: flex;
-    /* ALTERADO: Alinha o conteúdo mais para cima (do centro para o topo) */
-    align-items: flex-start; 
+    align-items: flex-start;
     justify-content: center;
-    min-height: 100vh; 
+    min-height: 70vh;
 }
 
-/* Pseudo-elemento para o Efeito de Desfoque (BLUR) */
-.hero::before { 
+.hero::before {
     content: '';
     position: absolute;
     top: 0;
@@ -190,91 +167,80 @@ html, body, #root, .App {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(10px); 
+    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     z-index: -1;
 }
 
-/* Wrapper para centralizar o conteúdo e as imagens */
 .hero-content-wrapper {
+    position: relative;
     display: flex;
-    flex-wrap: nowrap; 
-    justify-content: space-between; 
-    align-items: flex-end; /* As imagens continuam alinhadas por baixo */
-    max-width: 1400px; 
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1400px;
     width: 100%;
     z-index: 10;
-    padding: 0 10px; 
-    
-    /* ALTERADO: Move o wrapper inteiro para cima */
-    margin-top: 150px; 
+    padding: 0 10px;
+    margin-top: 80px;
 }
 
 .hero-text {
-    flex: 1 1 350px; 
-    max-width: 550px; 
-    text-align: center; 
+    flex: 1 1 350px;
+    max-width: 550px;
+    text-align: center;
     z-index: 10;
-    padding: 20px; 
-    margin-bottom: 50px; 
+    padding: 20px;
+    margin-top: 70px;
 }
 
-/* Título H2: */
 .hero-text h2 {
     font-family: var(--font-heading);
-    font-size: 2.5rem; 
+    font-size: 2.5rem;
     margin-bottom: 15px;
     color: var(--text-light);
     line-height: 1.1;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 800;
-    /* REMOVIDO: white-space: nowrap; para permitir a quebra forçada */
 }
 
-/* Estilo para o SPAN laranja */
 .hero-text h2 .orange-text {
-    color: var(--secondary-color); 
-    display: inline; 
+    color: var(--secondary-color);
+    display: inline;
 }
 
-
-/* Slogan: */
 .hero-text .slogan {
     font-size: 1.2rem;
-    font-weight: 400; 
+    font-weight: 400;
     margin-bottom: 30px;
     color: var(--text-slogan);
 }
 
-/* Container de Imagem */
 .hero-image {
-    flex: 0 0 auto; 
-    /* ALTERADO: Altura reduzida para 550px */
-    height: 550px; 
-    
+    flex: 0 0 auto;
+    height: 550px;
     display: flex;
+    align-items: flex-start;
     justify-content: center;
-    align-items: flex-end; 
     position: relative;
     z-index: 10;
     overflow: hidden;
 }
 
 .hero-image img {
-    max-width: 100%; 
-    height: 100%; 
-    object-fit: contain; 
-    border-radius: 0px; 
-    transform: translateY(0); 
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0px;
+    transform: translateY(0);
     position: relative;
     z-index: 2;
 }
 
-/* Ordem e alinhamento - Colando nas laterais com 10px de padding no wrapper */
 .hero-image.left-image {
     order: 1;
-    margin-left: -50px; 
+    margin-left: -50px;
 }
 
 .hero-text.center-text {
@@ -283,13 +249,11 @@ html, body, #root, .App {
 
 .hero-image.right-image {
     order: 3;
-    margin-right: -50px; 
+    margin-right: -50px;
 }
 
-
-/* Elementos Criativos (Esferas de Fundo) */
-.hero::after { 
-    content: ''; 
+.hero::after {
+    content: '';
     position: absolute;
     width: 300px;
     height: 300px;
@@ -315,23 +279,26 @@ html, body, #root, .App {
     transform: translateY(50%);
 }
 
-/* RESPONSIVO DA HERO SECTION */
-@media (max-width: 1200px) { 
+@media (max-width: 1200px) {
+    .hero {
+        min-height: 90vh;
+    }
     .hero-content-wrapper {
         flex-wrap: wrap;
         justify-content: center;
         padding: 0 10px;
-        margin-top: 50px; /* Sobe o conteúdo no tablet */
+        margin-top: 100px;
     }
 
     .hero-image {
-        height: 400px;
+        height: 480px;
         margin: 0;
         flex: 1 1 45%;
+        align-items: flex-end;
     }
 
-    .hero-image.left-image { 
-        order: 1; 
+    .hero-image.left-image {
+        order: 1;
         margin-left: 0;
     }
     .hero-image.right-image {
@@ -345,24 +312,28 @@ html, body, #root, .App {
 
     .hero-text h2 {
         font-size: 2rem;
-        white-space: normal; 
+        white-space: normal;
     }
 }
 
 @media (max-width: 768px) {
     .hero {
-        min-height: 80vh; 
-        padding: 10px 0 0;
+        min-height: 90vh;
+        padding: 0;
+    }
+    .hero-content-wrapper {
+        margin-top: 80px;
     }
     .hero-image {
-        height: 350px; 
+        height: 400px;
         flex: 1 1 80%;
+        align-items: flex-end;
     }
-    .hero-image.left-image { 
-        display: none; 
+    .hero-image.left-image {
+        display: none;
     }
     .hero-image.right-image {
-        flex: 1 1 100%; 
+        flex: 1 1 100%;
         max-width: 90%;
         margin-top: 20px;
     }
@@ -377,8 +348,15 @@ html, body, #root, .App {
     }
 }
 
+@keyframes slide {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
 
-/* Separador Elegante entre seções */
 .section-separator {
     width: 80%;
     max-width: 1000px;
@@ -387,29 +365,9 @@ html, body, #root, .App {
     margin: 60px auto;
 }
 
-/* REMOVIDO: @keyframes neon-glow (Dourado) */
-
-/* ------------------------------------------- */
-/* NOVO CARROSSEL / MARQUEE FIXO E NEON PRETO */
-/* ------------------------------------------- */
-
-/* Definição da animação Marquee (deslizamento) - USANDO -100% PARA LOOP PERFEITO */
-@keyframes slide {
-    from {
-        /* Começa na posição inicial do primeiro bloco */
-        transform: translateX(0%); 
-    }
-    to {
-        /* Desliza até o final do primeiro bloco (que é a cópia do segundo) */
-        /* Isso garante que o segundo bloco (cópia) entre perfeitamente no lugar do primeiro */
-        transform: translateX(-50%); 
-    }
-}
-
-/* Trust Bar */
 .trust-bar {
     background-color: var(--section-light);
-    color: var(--section-dark); 
+    color: var(--section-dark);
     text-align: center;
     padding: 25px 0;
     font-size: 1.2rem;
@@ -417,42 +375,27 @@ html, body, #root, .App {
     border-top: 5px solid var(--primary-color);
     border-bottom: 1px solid #EDEDED;
     margin-top: 0;
-    
-    /* Configuração para a rolagem (marquee) */
-    overflow: hidden; 
-    white-space: nowrap; /* TUDO EM UMA LINHA */
+    overflow: hidden;
+    white-space: nowrap;
     width: 100%;
-    box-shadow: none; /* Sem brilho dourado */
+    box-shadow: none;
 }
 
-/* Container que receberá o texto e a animação */
 .trust-bar .marquee-content {
-    display: inline-block; 
-    /* Colocamos duas cópias do texto no HTML. A animação de -50% garante o loop */
-    
-    /* Aplicando a animação SLIDE */
-    animation: slide 30s linear infinite; /* Voltamos para 30s para ser visivelmente mais lento */
-    
-    /* NOVO: Neon Preto Sutil (apenas sombra escura) */
-    color: var(--section-dark); 
-    text-shadow: 0 0 1px var(--section-dark), 0 0 2px rgba(0, 0, 0, 0.5); /* Sombra preta para efeito "neon" escuro */
-    
-    /* Aumentando o tamanho para o loop funcionar, já que o conteúdo é repetido no HTML */
-    width: 200%; 
+    display: inline-block;
+    animation: slide 30s linear infinite;
+    color: var(--section-dark);
+    text-shadow: 0 0 1px var(--section-dark), 0 0 2px rgba(0, 0, 0, 0.5);
+    width: 200%;
 }
 
-/* ------------------------------------------- */
-/* FIM CORREÇÃO CARROSSEL */
-/* ------------------------------------------- */
-
-/* Nova Seção Imagem + Texto */
 .info-section {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 60px;
-    padding: 80px 5%; 
+    padding: 80px 5%;
     max-width: 1200px;
     margin: auto;
 }
@@ -476,10 +419,9 @@ html, body, #root, .App {
 .info-image-container img {
     max-width: 100%;
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
-/* Linha Vertical Elegante */
 .info-divider-line {
     width: 2px;
     height: 300px;
@@ -510,11 +452,11 @@ html, body, #root, .App {
     line-height: 1.7;
 }
 
-/* Seção de Cards */
+/* Seção de Cards - Correção Aplicada */
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px; 
+    gap: 30px;
     padding: 80px 5%;
     max-width: 1200px;
     margin: auto;
@@ -531,8 +473,10 @@ html, body, #root, .App {
     cursor: pointer;
     text-align: left;
     position: relative;
+    /* Garante que o card preencha a altura do grid, e não mude o tamanho do grid */
     display: flex;
     flex-direction: column;
+    height: auto; 
 }
 
 .card:hover {
@@ -544,7 +488,8 @@ html, body, #root, .App {
 .card-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    /* **Alinha verticalmente o conteúdo do header ao centro** */
+    align-items: center; 
     margin-bottom: 15px;
     width: 100%;
 }
@@ -575,6 +520,8 @@ html, body, #root, .App {
 }
 
 .card-description {
+    /* **Conteúdo do texto alinhado à esquerda** */
+    text-align: left; 
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
@@ -582,16 +529,16 @@ html, body, #root, .App {
     padding-top: 0;
     color: #444;
     line-height: 1.6;
+    flex-shrink: 0; /* Impede que ele force o card a crescer antes de expandir */
 }
 
 .card.expanded .card-description {
-    max-height: 500px;
+    /* **Max-height alto garante a expansão suave e individual** */
+    max-height: 500px; 
     opacity: 1;
     padding-top: 15px;
 }
 
-
-/* Seção de Segurança */
 .security-section {
     background-color: var(--primary-color);
     color: var(--text-light);
@@ -643,7 +590,6 @@ html, body, #root, .App {
     margin-top: 10px;
 }
 
-/* CTA Final */
 .final-cta {
     text-align: center;
     padding: 80px 5%;
@@ -664,8 +610,6 @@ html, body, #root, .App {
     margin-bottom: 40px;
 }
 
-
-/* Footer Simples e Moderno */
 footer {
     background-color: var(--section-dark);
     color: var(--text-light);
@@ -675,64 +619,71 @@ footer {
     margin-top: 0;
 }
 
-
-/* Responsivo */
-@media (max-width: 950px) {
+@media (max-width: 1200px) {
     .hero {
-        padding: 100px 5% 40px;
+        min-height: 90vh;
     }
-    .hero::before { 
-        backdrop-filter: blur(3px); 
-        -webkit-backdrop-filter: blur(3px);
-    }
-    .hero-text h2 {
-        font-size: 2.5rem;
-        letter-spacing: 1px;
-    }
-    .hero-image {
-        height: auto;
-    }
-    
-    .hero-image img {
-        max-height: 100%;
+    .hero-content-wrapper {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0 10px;
+        margin-top: 100px;
     }
 
-    /* Info Section no Mobile */
-    .info-section {
-        flex-direction: column;
-        gap: 40px;
+    .hero-image {
+        height: 480px;
+        margin: 0;
+        flex: 1 1 45%;
+        align-items: flex-end;
     }
-    .info-content {
-        flex-direction: column;
-        gap: 0;
+
+    .hero-image.left-image {
+        order: 1;
+        margin-left: 0;
     }
-    .info-image-container, .info-text {
-        max-width: 100%;
-        text-align: center;
+    .hero-image.right-image {
+        order: 3;
+        margin-right: 0;
+    }
+    .hero-text.center-text {
+        order: 2;
+        margin-bottom: 20px;
+    }
+
+    .hero-text h2 {
+        font-size: 2rem;
+        white-space: normal;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        min-height: 90vh;
         padding: 0;
     }
-    .info-image-container {
-        order: -1;
+    .hero-content-wrapper {
+        margin-top: 80px;
     }
-    .info-divider-line {
+    .hero-image {
+        height: 400px;
+        flex: 1 1 80%;
+        align-items: flex-end;
+    }
+    .hero-image.left-image {
         display: none;
     }
-
-    .cards {
-        grid-template-columns: 1fr;
-    }
-    .card {
+    .hero-image.right-image {
+        flex: 1 1 100%;
         max-width: 90%;
+        margin-top: 20px;
     }
-
-    .security-cards {
-        flex-direction: column;
-        align-items: center;
+    .hero-text h2 {
+        font-size: 1.8rem;
     }
-    .security-card {
-        max-width: 400px;
+    .hero-text .slogan {
+        font-size: 1rem;
     }
-    .final-cta h2 {
-        font-size: 2rem;
+    .hero-content-wrapper::before, .hero::after {
+        display: none;
     }
 }
