@@ -1,5 +1,6 @@
 package com.gestao.financas.dto;
 
+
 import java.math.BigDecimal;
 
 public class FinancialSummaryDTO {
@@ -7,6 +8,14 @@ public class FinancialSummaryDTO {
     private BigDecimal totalExpense;
     private BigDecimal balance;
 
+    // Construtor com 3 parâmetros
+    public FinancialSummaryDTO(BigDecimal totalIncome, BigDecimal totalExpense, BigDecimal balance) {
+        this.totalIncome = totalIncome;
+        this.totalExpense = totalExpense;
+        this.balance = balance;
+    }
+
+    // Construtor com 2 parâmetros (opcional)
     public FinancialSummaryDTO(BigDecimal totalIncome, BigDecimal totalExpense) {
         this.totalIncome = totalIncome;
         this.totalExpense = totalExpense;

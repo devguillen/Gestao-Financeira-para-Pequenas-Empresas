@@ -7,6 +7,8 @@ public class ConsolidatedBalanceDTO {
     private BigDecimal totalIncome;
     private BigDecimal totalExpense;
 
+    public ConsolidatedBalanceDTO() {}
+
     public ConsolidatedBalanceDTO(BigDecimal totalBalance, BigDecimal totalIncome, BigDecimal totalExpense) {
         this.totalBalance = totalBalance;
         this.totalIncome = totalIncome;
