@@ -1,0 +1,31 @@
+name: Performance Metrics
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  measure_performance:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Backend
+        run: |
+          start=$(date +%s)
+          ./mvnw clean package -DskipTests
+          end=$(date +%s)
+          echo "build_duration_seconds=$((end-start))" >> $GITHUB_ENV
+
+      - name: Testes Unitários
+        run: |
+          start=$(date +%s)
+          ./mvnw test
+          end=$(date +%s)
+          echo "test_duration_seconds=$((end-start))" >> $GITHUB_ENV
+
+      - name: Publicar métricas
+        run: |
+          echo "🔹 Build levou: $build_duration_seconds s"
+          echo "🔹 Testes levaram: $test_duration_seconds s"
